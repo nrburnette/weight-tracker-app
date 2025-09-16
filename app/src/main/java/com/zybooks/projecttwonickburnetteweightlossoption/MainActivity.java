@@ -52,9 +52,23 @@ public class MainActivity extends AppCompatActivity {
 
         //to display 'goal weight' using shared preferences
         SharedPreferences prefs = getSharedPreferences("WeightPrefs", MODE_PRIVATE);
+        // UPDATED grab first name from SharedPreferences, pick a random template
+        String firstName = prefs.getString(
+                getString(R.string.pref_first_name_key),
+                getString(R.string.default_first_name)
+        );
+
         boolean isGoalWeightMet = prefs.getBoolean("goalWeightMet", false);
-        String savedGoal = prefs.getString("goalWeight", "Not Set");
-        goalWeight.setText("Goal Weight: " + savedGoal + " lbs");
+
+        // UPDATED: call resource and placeholder to use string.xml for strings and key
+        String savedGoal = prefs.getString(
+                getString(R.string.goal_weight_key),
+                getString(R.string.goal_not_set)
+        );
+
+        // UPDATED: call resource and placeholder to call (%1$s) for label
+        goalWeight.setText(getString(R.string.goal_weight_label, savedGoal));
+
 
 
         // Initialize database helper
@@ -76,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        deleteLastEntryButton.setOnClickListener(view -> {
+        deleteLastEntryButton.setOnClickListener(view -> {  // UPDATED call resource string for last entry deleted
             dbHelper.deleteLastEntry();
             loadWeightData(); //refresh recycler view to show deletion
-            Toast.makeText(MainActivity.this, "Last entry deleted!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.last_entry_deleted, Toast.LENGTH_SHORT).show();
         });
 
         //setup save goal button
@@ -90,12 +104,13 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("goalWeight", goal);
                 editor.putBoolean("goalWeightMet", false); //reset flag in case of a new goal
                 editor.apply();
-                //update UI
-                goalWeight.setText("Goal Weight: " + goal + " lbs");
-                Toast.makeText(this, "Goal weight saved!", Toast.LENGTH_SHORT).show();
+                //UPDATED: call resource strings instead of hardcoded strings
+                // update UI with goal and weight
+                goalWeight.setText(getString(R.string.goal_weight_label, goal));
+                Toast.makeText(this, R.string.goal_saved_confirmation, Toast.LENGTH_SHORT).show();
 
-            } else {
-                Toast.makeText(this, "Please enter a valid goal weight", Toast.LENGTH_SHORT).show();
+            } else { // UPDATED: call resource strings instead of hardcoded strings
+                Toast.makeText(this, R.string.enter_valid_goal_weight, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,9 +165,9 @@ public class MainActivity extends AppCompatActivity {
             dbHelper.insertWeight(newWeight, currentDate); // Insert into database
             updateWeight.setText(""); // Clear input field
             loadWeightData(); // Refresh RecyclerView
-            Toast.makeText(this, "Weight Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.weight_added, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Please enter a weight", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.please_enter_weight, Toast.LENGTH_SHORT).show();
         }
     }
 

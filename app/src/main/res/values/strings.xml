@@ -6,10 +6,27 @@
     <string name="previous_weight">Previous Weight</string>
     <string name="goal_weight">Goal Weight</string>
     <string name="update_your_weight">Update Your Weight</string>
-    <string name="inspirational_message">Losing Weight is Fun!</string>
     <string name="sms_notifications">SMS Notifications</string>
     <string name="checking_sms_permission">Checking SMS permission...</string>
     <string name="grant_sms_permission">Grant SMS Permission</string>
     <string name="this_is_an_sms_notification">This is an SMS Notification!</string>
     <string name="send_notification">Send Notification</string>
+    <string name="goal_weight_key">goalWeight</string>
+    <string name="goal_not_set">Not Set</string>
+    <string name="goal_weight_label">Goal Weight: %1$s lbs</string>
+    <string name="last_entry_deleted">Last entry deleted!</string>
+    <string name="goal_saved_confirmation">Goal Weight Saved!</string>
+    <string name="enter_valid_goal_weight">Please enter a valid goal weight!</string>
+    <string name="weight_added">Weight Added!</string>
+    <string name="please_enter_weight">Please enter a weight</string>
+    <string name="pref_first_name_key">first_name</string>
+    <string name="default_first_name">Friend</string>
+    <string-array name="inspiration_messages">
+        <item>Welcome, %1$s—time to lose weight!</item>
+        <item>%1$s, small steps add up, consistency is key!</item>
+        <item>Keep up the great work %1$s! Progress is the name of the game.</item>
+    </string-array>
+
+
+
 </resources>
