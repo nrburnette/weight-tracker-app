@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Project Two Nick Burnette Weight Loss Option</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="previous_weight">Previous Weight</string>
+    <string name="goal_weight">Goal Weight</string>
+    <string name="update_your_weight">Update Your Weight</string>
+    <string name="inspirational_message">Losing Weight is Fun!</string>
+    <string name="sms_notifications">SMS Notifications</string>
+    <string name="checking_sms_permission">Checking SMS permission...</string>
+    <string name="grant_sms_permission">Grant SMS Permission</string>
+    <string name="this_is_an_sms_notification">This is an SMS Notification!</string>
+    <string name="send_notification">Send Notification</string>
+</resources>

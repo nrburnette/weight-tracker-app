@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/white">
+
+    <!-- Inspirational Message -->
+    <TextView
+        android:id="@+id/inspirationMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/inspirational_message"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="10dp"/>
+
+
+    <!-- Goal Weight -->
+    <EditText
+        android:id="@+id/goalWeightInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="Enter goal weight" />
+
+    <Button
+        android:id="@+id/saveGoalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Goal" />
+
+
+    <!-- Goal Weight -->
+    <TextView
+        android:id="@+id/goalWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/goal_weight"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="20dp"/>
+
+
+    <!-- Update Weight -->
+    <EditText
+        android:id="@+id/updateWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/update_your_weight"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="10dp" />
+    <Button
+        android:id="@+id/buttonAddWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Weight"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/buttonDeleteWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Last Entry"
+        android:backgroundTint="@color/gray"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp"/>
+
+
+
+
+    <!-- RecyclerView for grid display of db -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:padding="16dp"/>
+
+
+
+
+</LinearLayout>
