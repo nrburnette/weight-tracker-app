@@ -6,9 +6,9 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
-    android:background="@color/white">
+    android:background="@color/soft_gold"> <!-- UPDATED from white -->
 
-    <!-- Inspirational Message UPDATED to remove message here-->
+    <!-- Inspirational Message UPDATED to remove message here but keep location-->
     <TextView
         android:id="@+id/inspirationMessage"
         android:layout_width="match_parent"
@@ -20,19 +20,20 @@
         android:layout_marginBottom="10dp"/>
 
 
+
     <!-- Goal Weight -->
     <EditText
         android:id="@+id/goalWeightInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="Enter goal weight" />
+        android:hint="@string/hint_enter_goal_weight" />
 
     <Button
         android:id="@+id/saveGoalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Goal" />
+        android:text="@string/save_goal" />
 
 
     <!-- Goal Weight -->
@@ -64,7 +65,7 @@
         android:id="@+id/buttonAddWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Weight"
+        android:text="@string/add_weight"
         android:backgroundTint="@color/black"
         android:textColor="@android:color/white"
         android:padding="12dp"
@@ -74,11 +75,21 @@
         android:id="@+id/buttonDeleteWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete Last Entry"
+        android:text="@string/delete_last_entry"
         android:backgroundTint="@color/gray"
         android:textColor="@android:color/white"
         android:padding="12dp"
         android:layout_marginBottom="10dp"/>
+
+    <!-- UPDATED Show Progress Button -->
+    <Button
+        android:id="@+id/buttonMyProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_progress"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center_horizontal" />
+
 
 
 
@@ -86,9 +97,10 @@
     <!-- RecyclerView for grid display of db -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="1dp"
         android:padding="16dp"/>
 
 

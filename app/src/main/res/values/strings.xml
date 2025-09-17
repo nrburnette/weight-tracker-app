@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project Two Nick Burnette Weight Loss Option</string>
+    <string name="app_name">Capstone Project Nick Burnette Weight Loss App</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="btn_login">Login</string>
@@ -21,6 +21,12 @@
     <string name="please_enter_weight">Please enter a weight</string>
     <string name="pref_first_name_key">first_name</string>
     <string name="default_first_name">Friend</string>
+    <string name="hint_first_name">First Name Here</string>
+    <string name="hint_enter_goal_weight">Enter Goal Weight</string>
+    <string name="show_progress">My Progress</string>
+    <string name="add_weight">Add Weight</string>
+    <string name="delete_last_entry">Delete Last Entry</string>
+    <string name="save_goal">Save Goal</string>
     <string-array name="inspiration_messages">
         <item>Welcome, %1$s—time to lose weight!</item>
         <item>%1$s, small steps add up, consistency is key!</item>

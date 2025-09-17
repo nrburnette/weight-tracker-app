@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private Button deleteLastEntryButton;
     private WeightDatabaseHelper getDbHelper;
 
+    // UPDATED button for progress
+    private Button buttonMyProgress;
+
 
 
     @Override
@@ -49,19 +53,35 @@ public class MainActivity extends AppCompatActivity {
         updateWeight = findViewById(R.id.updateWeight);
         buttonAddWeight = findViewById(R.id.buttonAddWeight);
         recyclerView = findViewById(R.id.recyclerView);
+        // UPDATED adding new button for my progress
+        buttonMyProgress = findViewById(R.id.buttonMyProgress);
 
-        //to display 'goal weight' using shared preferences
-        SharedPreferences prefs = getSharedPreferences("WeightPrefs", MODE_PRIVATE);
-        // UPDATED grab first name from SharedPreferences, pick a random template
-        String firstName = prefs.getString(
+        //to display 'goal weight' using shared preferences // UPDATED renamed prefs to weightPrefs
+        SharedPreferences weightPrefs = getSharedPreferences("WeightPrefs", MODE_PRIVATE);
+
+
+        // UPDATED call SharedPreferences again to grab from LoginActivity
+        SharedPreferences userPrefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String firstName = userPrefs.getString(
                 getString(R.string.pref_first_name_key),
-                getString(R.string.default_first_name)
+                getString(R.string.default_first_name) // UPDATED default name is 'Friend'
         );
 
-        boolean isGoalWeightMet = prefs.getBoolean("goalWeightMet", false);
+        // UPDATED load inspiration message array from strings.xml
+        String[] templates = getResources().getStringArray(R.array.inspiration_messages);
+        // UPDATED pick a random inspiration message
+        int idx = new Random().nextInt(templates.length);
+
+        // UPDATED formats the selected message with the user's first name or default 'Friend'
+        String message = String.format(Locale.getDefault(), templates[idx], firstName);
+
+        // UPDATED now we can set the text message
+        inspirationMessage.setText(message);
+
+        boolean isGoalWeightMet = weightPrefs.getBoolean("goalWeightMet", false);
 
         // UPDATED: call resource and placeholder to use string.xml for strings and key
-        String savedGoal = prefs.getString(
+        String savedGoal = weightPrefs.getString(
                 getString(R.string.goal_weight_key),
                 getString(R.string.goal_not_set)
         );
@@ -86,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             String latestWeight = weightList.get(0).getWeight(); // Get the most recent weight
             if (latestWeight.equals(savedGoal)) {
                 sendGoalReachedSMS();
-                prefs.edit().putBoolean("goalWeightMet", true).apply(); // Mark goal as met
+                weightPrefs.edit().putBoolean("goalWeightMet", true).apply(); // Mark goal as met
             }
         }
 
@@ -100,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         saveGoalButton.setOnClickListener(view -> {
             String goal = goalWeightInput.getText().toString();
             if (!goal.isEmpty()) {  //place goal weight in SharedPreferences
-                SharedPreferences.Editor editor = prefs.edit();
+                SharedPreferences.Editor editor = weightPrefs.edit();
                 editor.putString("goalWeight", goal);
                 editor.putBoolean("goalWeightMet", false); //reset flag in case of a new goal
                 editor.apply();
@@ -113,6 +133,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, R.string.enter_valid_goal_weight, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // UPDATED setup My Progress button, initialized above
+        buttonMyProgress.setOnClickListener(v -> {
+            // PLACEHOLDER
+            Toast.makeText(MainActivity.this, "Progress Tracking coming soon", Toast.LENGTH_SHORT).show();
+        });
+
 
 
         // Set up RecyclerView
@@ -134,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(weightAdapter);
 
         // Check if goal weight is met
-        SharedPreferences prefs = getSharedPreferences("WeightPrefs", MODE_PRIVATE);
-        String goalWeight = prefs.getString("goalWeight", null);
+        SharedPreferences weightPrefs = getSharedPreferences("WeightPrefs", MODE_PRIVATE);
+        String goalWeight = weightPrefs.getString("goalWeight", null);
 
         if (goalWeight != null && !weightList.isEmpty()) {
             String latestWeight = weightList.get(0).getWeight(); // Get the most recent weight
