@@ -29,6 +29,9 @@
 
         <activity android:name="SMSActivity" />
 
+        <activity android:name=".ProgressActivity"
+            android:label="@string/title_progress"/> <!-- UPDATED ENHANCEMENT 2 -->
+
     </application>
 
 </manifest>

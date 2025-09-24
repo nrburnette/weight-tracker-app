@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
         //initialize weightList for later use
         ArrayList<WeightEntry> weightList = dbHelper.getAllWeights();
 
+        // UPDATED ENHANCEMENT 2 for TrendSummary.java
+        TrendSummary summary = TrendAnalyzer.analyze(weightList);
+
+
         //delete last entry
         deleteLastEntryButton = findViewById(R.id.buttonDeleteWeight);
 
@@ -136,8 +142,9 @@ public class MainActivity extends AppCompatActivity {
 
         // UPDATED setup My Progress button, initialized above
         buttonMyProgress.setOnClickListener(v -> {
-            // PLACEHOLDER
-            Toast.makeText(MainActivity.this, "Progress Tracking coming soon", Toast.LENGTH_SHORT).show();
+            // UPDATED ENHANCEMENT 2: start ProgressActivity
+            startActivity(new Intent(MainActivity.this, ProgressActivity.class));
+            //Toast.makeText(MainActivity.this, "Progress Tracking coming soon", Toast.LENGTH_SHORT).show();
         });
 
 
