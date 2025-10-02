@@ -31,8 +31,8 @@ public class WeightDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_WEIGHTS_TABLE = "CREATE TABLE IF NOT EXISTS weights ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "weight TEXT, "
-                + "date TEXT)";
+                + "date TEXT, "  // UPDATED e3, Swapping order of weight date for migration match into Room db
+                + "weight TEXT)";
         db.execSQL(CREATE_WEIGHTS_TABLE);
     }
 

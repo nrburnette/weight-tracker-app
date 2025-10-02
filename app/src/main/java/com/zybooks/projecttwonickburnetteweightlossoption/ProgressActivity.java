@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProgressActivity extends AppCompatActivity {
@@ -20,7 +21,10 @@ public class ProgressActivity extends AppCompatActivity {
         WeightDatabaseHelper dbHelper = new WeightDatabaseHelper(this);
 
         // Load entries
-        ArrayList<WeightEntry> weightList = dbHelper.getAllWeights();
+        // ArrayList<WeightEntry> weightList = dbHelper.getAllWeights(); // DEPRECATED
+        // UPDATED enhancement 3, Load entries from Room
+        AppDatabase db = AppDatabase.getInstance(this);
+        List<WeightEntryEntity> weightList = db.weightDao().getAll();
 
         // Analyze trend
         TrendSummary summary = TrendAnalyzer.analyze(weightList);

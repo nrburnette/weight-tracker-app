@@ -14,7 +14,7 @@ public final class TrendAnalyzer {
     private TrendAnalyzer() {} // utility constructor only
 
     // algorithm for analyzing the trends
-    public static TrendSummary analyze(List<WeightEntry> entries) {
+    public static TrendSummary analyze(List<WeightEntryEntity> entries) {
         TrendSummary s = new TrendSummary();
 
         if (entries == null || entries.size() < 2) {
@@ -25,33 +25,41 @@ public final class TrendAnalyzer {
             return s;
         }
 
+        //UPDATED enhancement 3, ensure chronological order
+        // Ensure dates ordered oldest to newest :
+        java.util.Collections.sort(entries, (a, b) ->
+                parseDate(a.date).compareTo(parseDate(b.date))); // UPDATED e3
+                // parseDate(a.getDate()).compareTo(parseDate(b.getDate()))); // DEPRECATED
+
+
         s.hasEnoughData = true;
 
         // gather entries from db, should already be in order
-        float first = parseWeight(entries.get(0).getWeight());
-        float last  = parseWeight(entries.get(entries.size() - 1).getWeight());
+        float first = parseWeight(entries.get(0).weight);  // UPDATED e3, getWeight() becomes weight   *no parenth*
+        float last  = parseWeight(entries.get(entries.size() - 1).weight);  // UPDATED e3, getWeight() becomes weight
 
         s.totalChange = last - first;
         s.totalChangePct = (first != 0f) ? (s.totalChange / first) * 100f : 0f;
 
 
-        // Ensure dates ordered oldest to newest :
-        java.util.Collections.sort(entries, (a, b) ->
-                parseDate(a.getDate()).compareTo(parseDate(b.getDate())));
 
         // reference on the last entry
         int lastIdx = entries.size() - 1;
-        Date lastDate    = parseDate(entries.get(lastIdx).getDate());
-        float lastWeight = parseWeight(entries.get(lastIdx).getWeight());
-
+        // Date lastDate    = parseDate(entries.get(lastIdx).getDate());  // DEPRECATED
+        // float lastWeight = parseWeight(entries.get(lastIdx).getWeight());  // DEPRECATED
+        Date lastDate = parseDate(entries.get(lastIdx).date);
+        float lastWeight = parseWeight(entries.get(lastIdx).weight);
         // lastDate - 28 days
         final long MS_PER_DAY = 86_400_000L;
         Date cutoff = new Date(lastDate.getTime() - 28L * MS_PER_DAY);
 
+        // UPDATED e3
         // get the FIRST entry with date is >= cutoff
-        WeightEntry oldestInWindow = null;
+        // DEPRECATED WeightEntry oldestInWindow = null;
+        WeightEntryEntity oldestInWindow = null;
         for (int i = 0; i < entries.size(); i++) {
-            Date d = parseDate(entries.get(i).getDate());
+            // Date d = parseDate(entries.get(i).getDate()); // DEPRECATED
+            Date d = parseDate(entries.get(i).date);
             if (!d.before(cutoff)) {           // d >= cutoff
                 oldestInWindow = entries.get(i);
                 break;                          // this is the oldest inside the window
@@ -60,8 +68,8 @@ public final class TrendAnalyzer {
 
         // Compute weekly pace only if there's an older point than the last
         if (oldestInWindow != null && oldestInWindow != entries.get(lastIdx)) {
-            float oldWeight = parseWeight(oldestInWindow.getWeight());
-            Date  oldDate   = parseDate(oldestInWindow.getDate());
+            float oldWeight = parseWeight(oldestInWindow.weight);  // UPDATED e3, getWeight() becomes weight
+            Date  oldDate   = parseDate(oldestInWindow.date);   // UPDATED e3, getDate() becomes date
             float days      = daysBetween(oldDate, lastDate);
             float delta     = lastWeight - oldWeight;
             s.weeklyPace    = (days > 0f) ? (delta / (days / 7f)) : 0f;
